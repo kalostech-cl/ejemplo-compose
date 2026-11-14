@@ -2,5 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "packageRules": [
+    {
+      "description": "Postgres mayor no arranca sobre el volumen pgdata de la versión anterior: se aprueba a mano en el Dependency Dashboard (y se migra con pg_upgrade o dump/restore).",
+      "matchPackageNames": ["postgres"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "La versión de Go está en el Dockerfile y en go.mod: que suban juntas.",
+      "matchPackageNames": ["golang", "go"],
+      "groupName": "Go"
+    }
   ]
 }
